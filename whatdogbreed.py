@@ -1,39 +1,70 @@
 #!/usr/bin/env python3
 
-#simple quiz to determine what kind of dog breed you are
+#A simple quiz to determine what kind of dog breed you are
 
-#valid input
+#valid input list
 valid = ["A", "B", "C", "D"]
 
-#QUESTIONS TODO: refactor this!!
-print("It's Friday Night! What are your plans?")
-fridayNight = input("A. PARTY TIME!\nB. Snoozin'\nC. Netflix binge\nD. Dinner with my fab friends\n")
-fridayNight = fridayNight.upper()
-while fridayNight not in valid:
-    fridayNight = input("Please enter a letter (A, B, C, or D): ").upper()
+#variable to hold total points, used to determine breed
+total = 0
 
-print("How would you describe your body?")
-bodyType = input("A. Tiny but mighty\nB. Athletic\nC. Tall and lanky\nD. I literally never think about this\n")
-bodyType = bodyType.upper()
-while bodyType not in valid:
-    bodyType = input("Please enter a letter (A, B, C, or D): ").upper()
+#list of questions
+questions = [
+    "It's Friday Night! What are your plans?\nA. PARTY TIME!\nB. Netflix binge\nC. Snoozin'\nD. Dinner with my fab friends\n",
+    "How would you describe your body?\nA. Tiny but mighty\nB. Athletic\nC. Tall and lanky\nD. I literally never think about this\n",
+    "What's your go-to dance move?\nA. All about the Fist Pump\nB. The Robot\nC. The Cha-Cha slide\nD. Judging everyone from the corner\n",
+    "What kind of exercise do you prefer?\nA. Anything with a ball\nB. I'm a gym rat\nC. Sprints\nD. hunting, I'm nature's most efficient predator...\n",
+    "How would your friends describe you?\nA. Aggressive and loud\nB. Too smart for my own good\nC. 60mph couch potato\nD. Aloof\n"
+]
 
-print("What's your go-to dance move?")
-danceMove = input("A. All about the Fist Pump\nB. The Robot\nC. The Cha-Cha slide\nD. Judging everyone from the corner\n")
-danceMove = danceMove.upper()
-while danceMove not in valid:
-    danceMove = input("Please enter a letter (A, B, C, or D): ").upper()
+#function to get user's answer to question
+def getAnswer():
+    answer = input("Enter a letter (A, B, C, or D): ")
+    answer = answer.upper()
+    while answer not in valid:
+        answer = input("Please enter a letter (A, B, C, or D): ").upper()
+    return answer
 
-print("What kind of exercise do you prefer?")
-exercise = input("A. Anything with a ball\nB. Sprints\nC. I'm a gym rat\nD. hunting, I'm nature's most efficient predator...\n")
-exercise = exercise.upper()
-while exercise not in valid:
-    exercise = input("Please enter a letter (A, B, C, or D): ").upper()
+#function to get the points associated with the users answer       
+def getPoints(answer):
+    points = 0
+    if answer == "A":
+        points = points + 1
+    elif answer == "B":
+       points = points + 2
+    elif answer == "C":
+        points = points + 3
+    else:
+       points = points + 4
+    return points
 
-print("How would your friends describe you?")
-friendDesc = input("A. Aggressive and loud\nB. 60mph couch potato\nC. Too smart for my own good\nD. Aloof\n")
-friendDesc = friendDesc.upper()
-while friendDesc not in valid:
-    friendDesc = input("Please enter a letter (A, B, C, or D): ").upper()
+#function to determine what breed based on total points
+def getBreed(total):
+    print("\nCongratulations")
+    if total >= 16:
+        print("You're not a dog, you're a cat!")
+    elif total >= 12:
+        print("You're a Greyhound!")
+    elif total >= 8:
+        print("You're a Dutch Shepherd!")
+    elif total > 5:
+        print("You're a mixed-breed!")
+    else:
+        print("You're a chihuahua!")
 
-#Dog breed determination logic (possible options: chihuahua, greyhound, Dutch Shepherd, mixed-breed, cat)
+def askQuestions():
+    total = 0
+    i = 0
+    for question in questions:
+        print(questions[i])
+        answer = getAnswer()
+        total = total + getPoints(answer)
+        i += 1
+    return total
+
+
+#determine what breed you are
+totalpoints = askQuestions()
+getBreed(totalpoints)
+
+
